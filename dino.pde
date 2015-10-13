@@ -16,11 +16,15 @@ Table load;
 TableRow saveToTable;
 TableRow loadFromTable;
 
+Random r = new Random();
+
+Cactus c = new Cactus();
+
 
 
 void setup()
 {
-  frameRate(60);
+  //frameRate(60);
 
   size(800, 200);
 
@@ -39,7 +43,7 @@ void setup()
   for (int i = 0; i < 3; i++)
   {
 
-    println(i);
+  
     cact[i] = false;
   }
 }
@@ -54,12 +58,15 @@ void draw()
 
   if (gameOver == false)
   {
+ //   delay(1000);
+   
 
 
+   c.move();
 
-    if (rand(.09) == true)
+    if (r.rand(.09) == true)
     {
-      cactus();
+      c.spawn();
     }
     for (int i = 0; i < 3; i++)
     {
@@ -84,9 +91,11 @@ void draw()
 
     ellipse(50, dinoY, 20, 20);
 
+
+
    // thread("cact");
-   cact();
-  } else if (gameOver == true)
+   
+  } if (gameOver == true)
   {
     fill(0);
 
@@ -163,52 +172,5 @@ void jump()
     dinoY = i+115; 
 
     delay(6-i/10);
-  }
-}
-
-
-boolean rand(float probability)
-{
-  if (random(0, 1) < probability)
-  {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-void cactus()
-{
-  for (int i = 0; i < 3; i++)
-  {
-    if (cact[i] == false)
-    {
-      cact[i] = rand(.1);
-
-
-      if (cact[i] == true) {
-        cactX[i] = 800;
-      }
-    }
-  }
-}
-
-void cact()
-{
-  for (int i = 0; i < 3; i++)
-  {
-    if (cact[i] == true) cactX[i]-=4 + score/10;
-
-    if (cactX[i] < 70 && cactX[i] > 30 && dinoY > 155)
-    {
-      gameOver=true;
-    } else if (cactX[i] < 30 && cact[i] == true)
-    {
-      score++;
-
-      cact[i] = false;
-    }
-
-    fill(0);
   }
 }
